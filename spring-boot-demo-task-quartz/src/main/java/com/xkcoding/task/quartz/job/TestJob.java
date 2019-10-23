@@ -21,6 +21,10 @@ import org.quartz.JobExecutionContext;
 @Slf4j
 public class TestJob implements BaseJob {
 
+    /**
+     * 页面创建并执行TestJob 定时计划
+     * @param context 上下文 
+     */
     @Override
     public void execute(JobExecutionContext context) {
         log.error("Test Job 执行时间: {}", DateUtil.now());
