@@ -20,7 +20,11 @@ import org.quartz.JobExecutionContext;
  */
 @Slf4j
 public class HelloJob implements BaseJob {
-
+    
+    /**
+     * 页面创建并执行HelloJob 定时计划
+     * @param context 上下文 
+     */
     @Override
     public void execute(JobExecutionContext context) {
         log.error("Hello Job 执行时间: {}", DateUtil.now());
