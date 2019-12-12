@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>登录</title>
+</head>
+<script type="text/javascript" src="/js/jquery-3.3.1.min.js"></script>
+<body>
+<div>
+  <div>
+    <input type="text" placeholder="用户名222" name="username" id="username" required="required"/>
+    <input type="password" placeholder="密码222" name="password" id="password" required="required"/>
+    <button onclick="login()">登录</button>
+  </div>
+</div>
+</body>
+<script type="text/javascript">
+  function login() {
+    var username = $("#username").val();
+    var password = $("#password").val();
+    $.ajax({
+      type: "post",
+      url: "/login",
+      data: {"username": username, "password": password},
+      dataType: "json",
+      success: function (result) {
+        if (result.code == "success") {
+          location.href ='/index';
+        } else {
+          alert(result.msg);
+        }
+      }
+    });
+  }
+</script>
+</html>
