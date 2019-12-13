@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhihao.dao.UserMapper">
+  <resultMap type="com.zhihao.entity.User" id="baseUser">
+    <id column="id" property="id" javaType="java.lang.String" jdbcType="VARCHAR"/>
+    <id column="username" property="username" javaType="java.lang.String" jdbcType="VARCHAR"/>
+    <id column="password" property="password" javaType="java.lang.String" jdbcType="VARCHAR"/>
+    <id column="create_time" property="createTime" javaType="java.util.Date" jdbcType="DATE"/>
+    <id column="status" property="status" javaType="java.lang.String" jdbcType="VARCHAR"/>
+  </resultMap>
+  <sql id="baseAll">
+    id,username,password,status,create_time
+  </sql>
+  <select id="findUserByName" resultMap="baseUser" parameterType="String">
+    select 
+    <include refid="baseAll"/>
+    from user where username = #{name}
+  </select>
+</mapper>
