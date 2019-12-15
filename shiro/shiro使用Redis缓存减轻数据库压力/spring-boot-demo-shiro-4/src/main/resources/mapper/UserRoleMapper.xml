@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhihao.dao.UserRoleMapper">
+
+  <select id="findRoleByUserName" resultType="com.zhihao.entity.Role">
+    SELECT ro.* FROM `user` u
+    LEFT JOIN user_role uro ON u.id=uro.user_id
+    RIGHT JOIN role ro ON ro.id = uro.rid WHERE u.username = #{username}
+  </select>
+</mapper>
