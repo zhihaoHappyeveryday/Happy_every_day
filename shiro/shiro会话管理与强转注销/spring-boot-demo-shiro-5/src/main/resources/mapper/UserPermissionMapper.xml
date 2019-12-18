@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhihao.dao.UserPermissionMapper">
+
+  <select id="findPermissionByUserName" resultType="com.zhihao.entity.Permission">
+  SELECT per.* FROM `permission` per
+   LEFT JOIN role__permission rope ON per.id=rope.pid
+   LEFT JOIN role ro ON ro.id=rope.rid
+   LEFT JOIN user_role uro ON uro.rid=ro.id
+   LEFT JOIN `user` u ON u.id=uro.user_id WHERE u.username = #{username};
+  </select>
+</mapper>

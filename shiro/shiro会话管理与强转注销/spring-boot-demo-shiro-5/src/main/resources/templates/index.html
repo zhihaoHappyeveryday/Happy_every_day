@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.w3.org/1999/xhtml">
+    <!--需要注意要使用shiro标签得加上xmlns:shiro="http://www.w3.org/1999/xhtml"-->
+<head>
+  <meta charset="UTF-8">
+  <title>首页</title>
+</head>
+<body>
+<p>[[${user.username}]]帅哥你好！</p>
+<div>
+  <a shiro:hasPermission="user:user" th:href="@{/list}">获取用户信息</a>
+  <a shiro:hasPermission="user:add" th:href="@{/add}">新增用户</a>
+  <a shiro:hasPermission="user:delete" th:href="@{/delete}">删除用户</a>
+
+  <p><a shiro:hasRole="admin" th:href="@{/online/list}">获取所有在线用户</a></p>
+
+</div>
+<span style="color: red">测试红色</span>
+<p shiro:hasRole="admin">你的角色为超级管理员</p>
+<p shiro:hasRole="test">你的角色为测试账户</p>
+
+
+<a th:href="@{/logout}">注销</a>
+</body>
+</html>

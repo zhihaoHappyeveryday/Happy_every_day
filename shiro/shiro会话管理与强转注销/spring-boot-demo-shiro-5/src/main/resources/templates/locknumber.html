@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>锁号用户管理</title>
+    <script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+</head>
+<body>
+<table border="1px">
+    <tr>
+        <th>用户id</th>
+        <th>用户名称</th>
+        <th>创建时间</th>
+        <th>状态</th>
+        <th>操作</th>
+    </tr>
+    <tr th:each="user : ${list}">
+        <th th:text="${user.id}"></th>
+        <th th:text="${user.username}"></th>
+        <th th:text="${#dates.format(user.createTime, 'yyyy-MM-dd HH:mm:ss')}"></th>
+        <th th:if="${user.status == '0' }">锁号</th>
+        <th ><a th:onclick="unlockNumber([[${user.id}]]);"  href="javascript:;">点击解锁号</a></th>
+    </tr>
+</table>
+<p><a th:href="@{/online/list}">返回</a></p>
+
+</body>
+<script type="text/javascript">
+    function unlockNumber(id) {
+        $.get("/online/unlockNumber",'id='+id,function (result) {
+            if (result.code === 'success') {
+                alert(result.msg);
+                location.href='/online/locknumber';
+            }else {
+                alert(result.msg);
+            }
+        });
+    }
+</script>
+</html>
