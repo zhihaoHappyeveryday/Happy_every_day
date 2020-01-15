@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhihao.dao.UmsAdminMapper">
+
+    <select id="getAdminByUsername" parameterType="string" resultType="com.zhihao.entity.UmsAdmin">
+        select *  from ums_admin where username = #{username}
+    </select>
+
+    <select id="getPermissionList" parameterType="long" resultType="com.zhihao.entity.UmsPermission">
+        SELECT * FROM `ums_permission` pr
+        LEFT JOIN ums_role_permission_relation re ON pr.pid = re.permission_id
+        LEFT JOIN ums_role ro ON ro.id = re.role_id
+        LEFT JOIN ums_admin_role_relation r ON r.role_id=ro.id
+        LEFT JOIN ums_admin ad ON ad.id = r.admin_id
+        WHERE ad.id = #{id}
+    </select>
+</mapper>
