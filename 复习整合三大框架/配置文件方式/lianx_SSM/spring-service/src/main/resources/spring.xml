@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- 加载配置属性文件 -->
+    <context:property-placeholder ignore-unresolvable="true" location="classpath:db-config.properties"/>
+
+    <!--  1.配置包扫描,扫描到service注解自动注册bean到框架,并排除Controller注解  -->
+    <context:component-scan base-package="com.zhihao" >
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+
+    <!--2. 配置数据源  导入mybatis配置好数据源的配置文件使用-->
+    <import resource="classpath*:mybatis.xml" />
+
+    <!-- 3. 配置事务管理器  jdbc.datasource包下的 -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <!-- 4. 事务规则管理(事务传播特性,使用的都是默认的可以省略不写)-->
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <!--管理规则属性配置-->
+        <tx:attributes>
+            <tx:method name="*" propagation="REQUIRED" isolation="DEFAULT" rollback-for="java.lang.Exception"/>
+        </tx:attributes>
+    </tx:advice>
+
+    <!-- 5. 配置 Annotation 驱动，扫描@Transactional注解的类定义事务   -->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+    <!-- xml配置方式   -->
+<!--    <aop:config>
+      &lt;!&ndash;指定切点  指定包下所有类所有方法&ndash;&gt;
+       <aop:pointcut id="transPointcut" expression="execution(* com.zhihao.service.impl.*.*(..))" />
+       &lt;!&ndash;配置通知&ndash;&gt;
+      <aop:advisor advice-ref="txAdvice" pointcut-ref="transPointcut"/>
+   </aop:config>            -->
+</beans>

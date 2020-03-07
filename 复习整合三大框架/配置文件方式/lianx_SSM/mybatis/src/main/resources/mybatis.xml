@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--  加载配置文件在spring框架中,这里的配置文件会导入到spring  -->
+    <!-- 1.配置数据源,使用alibaba的druid 配置参数 -->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
+          init-method="init" destroy-method="close">
+        <property name="url" value="${jdbc.url}" />
+        <property name="username" value="${jdbc.username}" />
+        <property name="password" value="${jdbc.password}" />
+        <property name="driverClassName" value="${jdbc.driverClassName}" />
+
+        <!-- 初始化连接大小 -->
+        <property name="initialSize" value="0" />
+        <!-- 连接池最大使用连接数量 -->
+        <property name="maxActive" value="20" />
+        <!-- 连接池最大空闲 -->
+        <!-- <property name="maxIdle" value="40" /> -->
+        <!-- 连接池最小空闲 -->
+        <property name="minIdle" value="0" />
+        <!-- 获取连接最大等待时间 -->
+        <property name="maxWait" value="60000" />
+        <property name="validationQuery" value="${validationQuery}" />
+        <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 默认是60000L -->
+        <property name="timeBetweenEvictionRunsMillis" value="60000" />
+        <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 默认是1800000L -->
+        <property name="minEvictableIdleTimeMillis" value="25200000" />
+        <!-- 打开removeAbandoned功能 -->
+        <property name="removeAbandoned" value="true" />
+        <!-- 1800秒，也就是30分钟 -->
+        <property name="removeAbandonedTimeout" value="1800" />
+        <!-- 关闭abanded连接时输出错误日志 -->
+        <property name="logAbandoned" value="true" />
+        <!-- 监控数据库 -->
+    <!-- <property name="filters" value="mergeStat,log4j" />-->
+    </bean>
+
+    <!-- 创建spring管理的SqlSessionFactoryBean 使用mybatis和spring整合包中的 -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!-- 数据库连接池 -->
+        <property name="dataSource" ref="dataSource" />
+        <!--  配置实体类  -->
+        <property name="typeAliasesPackage" value="com.zhihao.entity"/>
+        <!-- 自动扫描xml目录, SqlMapConfig.xml里的mappers手工配置 -->
+        <property name="mapperLocations" value="classpath:mappers/*.xml" />
+        <!-- 加载mybatis的全局配置文件和分页或者使用默认的就不用加载 -->
+        <property name="configLocation" value="classpath:SqlMapConfig.xml" />
+    </bean>
+
+    <!-- 创建MapperScannerConfigurer -->
+    <bean id="scannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!--  取代Dao接口的包扫描  -->
+        <property name="basePackage" value="com.zhihao.dao"/>
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+    </bean>
+</beans>
