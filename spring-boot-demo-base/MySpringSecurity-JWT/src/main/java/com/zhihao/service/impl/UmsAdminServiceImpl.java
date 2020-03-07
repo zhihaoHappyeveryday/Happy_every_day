@@ -55,11 +55,9 @@ public class UmsAdminServiceImpl implements UmsAdminService {
     public String login(String username, String password) {
         String token = null;
         //密码需要客户端加密后传递
-        //将密码进行加密操作
-        String encodePassword = passwordEncoder.encode(password);
         try {
             UserDetails userDetails = loadUserByUsername(username);
-            if(!passwordEncoder.matches(encodePassword,userDetails.getPassword())){
+            if(!passwordEncoder.matches(password,userDetails.getPassword())){
                 throw new BadCredentialsException("密码不正确");
             }
             UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
