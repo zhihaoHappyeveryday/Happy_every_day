@@ -6,7 +6,9 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ce582a1d-fc0e-4b74-bee4-bed14e772ea2" name="Default Changelist" comment="" />
+    <list default="true" id="ce582a1d-fc0e-4b74-bee4-bed14e772ea2" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/spring-mvc/src/main/java/com/zhihao/config/SpringMVCConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/spring-mvc/src/main/java/com/zhihao/config/SpringMVCConfig.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -38,6 +40,9 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
+  </component>
   <component name="LogFilters">
     <option name="FILTER_ERRORS" value="false" />
     <option name="FILTER_WARNINGS" value="false" />
@@ -63,6 +68,7 @@
     <option name="skipTests" value="true" />
   </component>
   <component name="ProjectId" id="1YkdciIfIZHajUi6UtqIPUiVH1o" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -80,7 +86,7 @@
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="MavenSettings" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -254,11 +260,6 @@
                 <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
                 <item name="Tomcat Server" type="7427dc5b:ServiceModel$ServiceGroupNode" />
               </path>
-              <path>
-                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-                <item name="Tomcat Server" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-                <item name="Finished" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-              </path>
             </expand>
             <select />
           </treeState>
@@ -281,6 +282,7 @@
       <workItem from="1583563554576" duration="20488000" />
       <workItem from="1583586761354" duration="4890000" />
       <workItem from="1583592095718" duration="8948000" />
+      <workItem from="1583601693537" duration="346000" />
     </task>
     <servers />
   </component>
@@ -300,10 +302,10 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="137" y="0" width="1092" height="728" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.728@0.0.1366.728" timestamp="1583586798427" />
-    <state x="488" y="74" key="#com.intellij.ide.util.MemberChooser" timestamp="1583601227138">
+    <state x="488" y="74" key="#com.intellij.ide.util.MemberChooser" timestamp="1583601978087">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="488" y="74" key="#com.intellij.ide.util.MemberChooser/0.0.1366.728@0.0.1366.728" timestamp="1583601227138" />
+    <state x="488" y="74" key="#com.intellij.ide.util.MemberChooser/0.0.1366.728@0.0.1366.728" timestamp="1583601978087" />
     <state x="529" y="253" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1583579054901">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -384,10 +386,10 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="213" y="19" key="Maven.ArtifactSearchDialog/0.0.1366.728@0.0.1366.728" timestamp="1583583716274" />
-    <state x="184" y="0" key="SettingsEditor" timestamp="1583582834970">
+    <state x="184" y="0" key="SettingsEditor" timestamp="1583601710306">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="184" y="0" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1583582834970" />
+    <state x="184" y="0" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1583601710306" />
     <state x="92" y="92" width="1182" height="544" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog" timestamp="1583597353462">
       <screen x="0" y="0" width="1366" height="728" />
     </state>

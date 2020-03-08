@@ -16,7 +16,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EnableWebMvc //启动spring-mvc功能
 @ComponentScan(basePackages = {"com.zhihao.controller"}) //包扫描)
 //@Import(value = {SpringAndMybatisConfig.class}) //导入spring配置类
-public class SpringMVCConfig implements WebMvcConfigurer {
+public class SpringMVCConfig  implements WebMvcConfigurer {
 
     /**
      * 配置视图解析器
@@ -29,4 +29,6 @@ public class SpringMVCConfig implements WebMvcConfigurer {
     public void configureViewResolvers(ViewResolverRegistry registry) {
         registry.jsp("/WEB-INF/view/",".jsp");
     }
+
+
 }
