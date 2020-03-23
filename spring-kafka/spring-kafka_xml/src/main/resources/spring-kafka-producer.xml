@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+         http://www.springframework.org/schema/beans/spring-beans.xsd
+         http://www.springframework.org/schema/context
+         http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- 1.定义producer的参数 -->
+    <bean id="producerProperties" class="java.util.HashMap">
+        <constructor-arg>
+            <map>
+                <!--  brokers 地址-->
+                <entry key="bootstrap.servers" value="localhost:9092" />
+                <!--   组id 生产者是什么分组, 消费者也要是相同  -->
+                <entry key="group.id" value="mykafka" />
+                <!--  发送失败重试次数  -->
+                <entry key="retries" value="1" />
+                <!-- 批处理条数：  -->
+                <entry key="batch.size" value="16384" />
+                <!--批处理延迟时间上限：即1ms过后，不管是否达到批处理数，都直接发送一次请求   -->
+                <entry key="linger.ms" value="1" />
+                <!-- 即32MB的批处理缓冲区 -->
+                <entry key="buffer.memory" value="33554432" />
+                <!-- 即所有副本都同步到数据时send方法才返回, 以此来完全判断数据是否发送成功, 理论上来讲数据不会丢失           -->
+                <entry key="acks" value="all" />
+                <entry key="key.serializer"
+                       value="org.apache.kafka.common.serialization.StringSerializer" />
+                <entry key="value.serializer"
+                       value="org.apache.kafka.common.serialization.StringSerializer" />
+            </map>
+        </constructor-arg>
+    </bean>
+
+    <!-- 2.创建kafkatemplate需要使用的producerfactory bean -->
+    <bean id="producerFactory"
+          class="org.springframework.kafka.core.DefaultKafkaProducerFactory">
+        <!-- 使用参数初始化工厂 -->
+        <constructor-arg>
+            <ref bean="producerProperties" />
+        </constructor-arg>
+    </bean>
+
+    <!-- 3.创建kafkatemplate bean，使用的时候，只需要注入这个bean，即可使用template的send消息方法 -->
+    <bean id="KafkaTemplate" class="org.springframework.kafka.core.KafkaTemplate">
+        <constructor-arg ref="producerFactory" />
+        <constructor-arg name="autoFlush" value="true" />
+        <property name="defaultTopic" value="defaultTopic" />
+        <!-- 发送信息返回的结果进行监听  -->
+        <property name="producerListener" ref="MyProducerListener"/>
+    </bean>
+
+    <!-- 4.我的生产者监听类  监听发送结果 -->
+    <bean id="MyProducerListener" class="com.zhihao.resultlistener.KafkaProducerListener"/>
+</beans>

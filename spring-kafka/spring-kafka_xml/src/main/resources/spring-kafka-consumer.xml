@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+     http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+     http://www.springframework.org/schema/tx
+     http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+     http://www.springframework.org/schema/jee
+     http://www.springframework.org/schema/jee/spring-jee-3.0.xsd
+     http://www.springframework.org/schema/context
+      http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+
+    <!-- 1.定义consumer的参数 -->
+    <bean id="consumerProperties" class="java.util.HashMap">
+        <constructor-arg>
+            <map>
+                <entry key="bootstrap.servers" value="localhost:9092"/>
+                <!--   组id 生产者是什么分组, 消费者也要是相同  -->
+                <entry key="group.id" value="mykafka"/>
+                <!--   启用自动提交     -->
+                <entry key="enable.auto.commit" value="true"/>
+                <!--   自动提交间隔  -->
+                <entry key="auto.commit.interval.ms" value="1000"/>
+                <!--   手动提交 -->
+                <entry key="ack.mode" value="manual_immediate"/>
+                <entry key="auto.offset.reset" value="latest"/>
+                <entry key="concurrency" value="5"/>
+                <entry key="session.timeout.ms" value="15000"/>
+                <entry key="key.deserializer" value="org.apache.kafka.common.serialization.StringDeserializer"/>
+                <entry key="value.deserializer" value="org.apache.kafka.common.serialization.StringDeserializer"/>
+            </map>
+        </constructor-arg>
+    </bean>
+
+    <!-- 2.创建consumerFactory bean -->
+    <bean id="consumerFactory" class="org.springframework.kafka.core.DefaultKafkaConsumerFactory">
+        <constructor-arg>
+            <ref bean="consumerProperties"/>
+        </constructor-arg>
+    </bean>
+
+    <!-- 3.我的实际执行消息消费的类 -->
+    <bean id="MyMessageListenerConsumerService" class="com.zhihao.KafkaConsumerServer"/>
+
+    <!-- 4.消费者容器配置信息 -->
+    <bean id="MyConsumerContainerConfig" class="org.springframework.kafka.listener.ContainerProperties">
+        <!-- 订阅mykafkaDemo 主题 -->
+        <constructor-arg value="mykafkaDemo"/>
+        <!-- 确认模式 -->
+        <property name="ackMode" value="MANUAL_IMMEDIATE"/>
+
+        <!--  选择我的监听类进行消费   -->
+        <property name="messageListener" ref="MyMessageListenerConsumerService"/>
+    </bean>
+
+    <!-- 5.创建单线程Kafka消息监听器容器 -->
+<!--    <bean id="MyConsumerMessageListenerContainer" class="org.springframework.kafka.listener.KafkaMessageListenerContainer"-->
+<!--          init-method="doStart">-->
+<!--        <constructor-arg ref="consumerFactory"/>-->
+<!--        <constructor-arg ref="MyConsumerContainerConfig"/>-->
+<!--    </bean>-->
+
+    <!-- 5.消费者并发消息监听容器，执行doStart()方法 -->
+    <!-- consumerFactory+containerProperties -> messageListenerContainer 容器配置（topics）+ 消息监听器，构造一个并发消息监听容器，并执行初始化方法doStart -->
+   <bean id="messageListenerContainer" class="org.springframework.kafka.listener.ConcurrentMessageListenerContainer" init-method="doStart" >
+       <constructor-arg ref="consumerFactory" />-->
+       <constructor-arg ref="MyConsumerContainerConfig" />-->
+       <!--  并发数-->
+       <property name="concurrency" value="5" />-->
+   </bean>-->
+
+
+
+</beans>
