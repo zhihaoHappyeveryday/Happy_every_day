@@ -23,10 +23,6 @@
                 <entry key="enable.auto.commit" value="true"/>
                 <!--   自动提交间隔  -->
                 <entry key="auto.commit.interval.ms" value="1000"/>
-                <!--   手动提交 -->
-                <entry key="ack.mode" value="manual_immediate"/>
-                <entry key="auto.offset.reset" value="latest"/>
-                <entry key="concurrency" value="5"/>
                 <entry key="session.timeout.ms" value="15000"/>
                 <entry key="key.deserializer" value="org.apache.kafka.common.serialization.StringDeserializer"/>
                 <entry key="value.deserializer" value="org.apache.kafka.common.serialization.StringDeserializer"/>
@@ -50,7 +46,6 @@
         <constructor-arg value="mykafkaDemo"/>
         <!-- 确认模式 -->
         <property name="ackMode" value="MANUAL_IMMEDIATE"/>
-
         <!--  选择我的监听类进行消费   -->
         <property name="messageListener" ref="MyMessageListenerConsumerService"/>
     </bean>
@@ -65,11 +60,11 @@
     <!-- 5.消费者并发消息监听容器，执行doStart()方法 -->
     <!-- consumerFactory+containerProperties -> messageListenerContainer 容器配置（topics）+ 消息监听器，构造一个并发消息监听容器，并执行初始化方法doStart -->
    <bean id="messageListenerContainer" class="org.springframework.kafka.listener.ConcurrentMessageListenerContainer" init-method="doStart" >
-       <constructor-arg ref="consumerFactory" />-->
-       <constructor-arg ref="MyConsumerContainerConfig" />-->
+       <constructor-arg ref="consumerFactory" />
+       <constructor-arg ref="MyConsumerContainerConfig" />
        <!--  并发数-->
-       <property name="concurrency" value="5" />-->
-   </bean>-->
+       <property name="concurrency" value="5" />
+   </bean>
 
 
 
