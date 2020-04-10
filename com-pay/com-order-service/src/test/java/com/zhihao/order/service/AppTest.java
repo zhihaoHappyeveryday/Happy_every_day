@@ -1,9 +1,9 @@
-package ocm.eshuix.idm.order.service;
+package ocm.zhihao.order.service;
 
-import com.eshuix.common.orderpay.UnifiedPlaceAnOrder;
-import com.eshuix.common.orderpay.enums.PayType;
+import com.zhihao.common.orderpay.UnifiedPlaceAnOrder;
+import com.zhihao.common.orderpay.enums.PayType;
 import com.zhihao.common.orderpay.util.SpringContextHolder;
-import com.eshuix.idm.order.service.OrderServiceApplication;
+import com.zhihao.order.service.OrderServiceApplication;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
